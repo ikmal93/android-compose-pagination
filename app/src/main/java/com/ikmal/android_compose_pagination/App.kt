@@ -1,4 +1,4 @@
-package com.ikmal.android_compose_pagination.core
+package com.ikmal.android_compose_pagination
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

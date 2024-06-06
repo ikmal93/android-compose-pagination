@@ -1,4 +1,4 @@
-package com.ikmal.android_compose_pagination.core
+package com.ikmal.android_compose_pagination.core.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

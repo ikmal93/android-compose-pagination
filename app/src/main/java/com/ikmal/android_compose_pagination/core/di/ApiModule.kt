@@ -1,4 +1,4 @@
-package com.ikmal.android_compose_pagination.core
+package com.ikmal.android_compose_pagination.core.di
 
 import com.ikmal.android_compose_pagination.home.data.api.HomeApi
 import dagger.Module

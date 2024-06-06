@@ -1,5 +1,6 @@
 package com.ikmal.android_compose_pagination.home.data.model
 
+import com.ikmal.android_compose_pagination.core.presentation.Constant.BASE_IMAGE_URL
 import com.ikmal.android_compose_pagination.home.domain.model.PopularMoviesEntity
 import com.ikmal.android_compose_pagination.home.domain.model.ResultEntity
 
@@ -17,7 +18,7 @@ fun PopularMoviesResponse.toEntity(): PopularMoviesEntity {
 fun PopularMoviesResponse.ResultResponse.toEntity(): ResultEntity {
     return ResultEntity(
         adult = this.adult,
-        backdropPath = this.backdropPath,
+        backdropPath = BASE_IMAGE_URL + this.backdropPath,
         genreIds = this.genreIds,
         id = this.id,
         originalLanguage = this.originalLanguage,
