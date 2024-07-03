@@ -3,14 +3,13 @@ package com.ikmal.android_compose_pagination
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.ikmal.android_compose_pagination.home.presentation.HomeScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.ikmal.android_compose_pagination.home.presentation.homeScreen
+import com.ikmal.android_compose_pagination.moviedetail.presentation.movieDetailScreen
 import com.ikmal.android_compose_pagination.ui.theme.AndroidcomposepaginationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,16 +18,19 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-//            AndroidcomposepaginationTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = MaterialTheme.colorScheme.background
-//                ) {
-//                    HomeScreen()
-//                }
-//            }
-            HomeScreen()
+            AndroidcomposepaginationTheme {
+                Scaffold { innerPadding ->
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "home",
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        homeScreen(navController = navController)
+                        movieDetailScreen(navController = navController)
+                    }
+                }
+            }
         }
     }
 }

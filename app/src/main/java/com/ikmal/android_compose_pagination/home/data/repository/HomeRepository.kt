@@ -4,4 +4,7 @@ import com.ikmal.android_compose_pagination.home.domain.model.PopularMoviesEntit
 
 interface HomeRepository {
     suspend fun getPopularMovies(): PopularMoviesEntity
+    suspend fun getTopRatedMovies(): PopularMoviesEntity
+    suspend fun getNowPlayingMovies(): PopularMoviesEntity
+    suspend fun getUpcomingMovies(): PopularMoviesEntity
 }

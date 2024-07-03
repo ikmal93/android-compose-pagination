@@ -10,4 +10,16 @@ class HomeRepositoryImpl(
     override suspend fun getPopularMovies(): PopularMoviesEntity {
         return homeApi.getPopularMovies().toEntity()
     }
+
+    override suspend fun getTopRatedMovies(): PopularMoviesEntity {
+        return homeApi.getTopRatedMovies().toEntity()
+    }
+
+    override suspend fun getNowPlayingMovies(): PopularMoviesEntity {
+        return homeApi.getNowPlayingMovies().toEntity()
+    }
+
+    override suspend fun getUpcomingMovies(): PopularMoviesEntity {
+        return homeApi.getUpcomingMovies().toEntity()
+    }
 }

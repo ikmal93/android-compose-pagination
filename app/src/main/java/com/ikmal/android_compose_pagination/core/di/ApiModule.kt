@@ -1,6 +1,7 @@
 package com.ikmal.android_compose_pagination.core.di
 
 import com.ikmal.android_compose_pagination.home.data.api.HomeApi
+import com.ikmal.android_compose_pagination.moviedetail.data.api.MovieDetailApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,4 +18,11 @@ object ApiModule {
         retrofit: Retrofit
     ): HomeApi =
         retrofit.create(HomeApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideMovieDetailApi(
+        retrofit: Retrofit
+    ): MovieDetailApi =
+        retrofit.create(MovieDetailApi::class.java)
 }
