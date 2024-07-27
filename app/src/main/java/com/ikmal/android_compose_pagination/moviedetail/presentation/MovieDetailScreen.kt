@@ -16,7 +16,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.ikmal.android_compose_pagination.core.Result
-import com.ikmal.android_compose_pagination.home.presentation.LoadingIndicator
 import com.ikmal.android_compose_pagination.moviedetail.domain.model.MovieDetailEntity
 
 fun NavGraphBuilder.movieDetailScreen(navController: NavController) {
@@ -43,17 +42,13 @@ fun MovieDetailScreen(movieId: String, viewModel: MovieDetailViewModel) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (movieDetailState) {
-                is Result.Loading -> {
-                    LoadingIndicator()
-                }
-
                 is Result.Success -> {
                     val data =
                         (movieDetailState as Result.Success<MovieDetailEntity>).data
                     Text(text = data.originalTitle ?: "")
                 }
 
-                is Result.Error -> {}
+                else -> Unit
             }
 
         }

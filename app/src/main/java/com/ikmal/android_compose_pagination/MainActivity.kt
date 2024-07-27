@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.ikmal.android_compose_pagination.home.presentation.homeScreen
 import com.ikmal.android_compose_pagination.moviedetail.presentation.movieDetailScreen
+import com.ikmal.android_compose_pagination.movielist.presentation.movieListScreen
 import com.ikmal.android_compose_pagination.ui.theme.AndroidcomposepaginationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         homeScreen(navController = navController)
                         movieDetailScreen(navController = navController)
+                        movieListScreen()
                     }
                 }
             }

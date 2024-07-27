@@ -1,20 +1,17 @@
 package com.ikmal.android_compose_pagination.home.presentation
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ikmal.android_compose_pagination.home.domain.usecase.GetPopularMoviesUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 import com.ikmal.android_compose_pagination.core.Result
-import com.ikmal.android_compose_pagination.home.domain.model.PopularMoviesEntity
 import com.ikmal.android_compose_pagination.home.domain.usecase.GetNowPlayingMoviesUseCase
+import com.ikmal.android_compose_pagination.home.domain.usecase.GetPopularMoviesUseCase
 import com.ikmal.android_compose_pagination.home.domain.usecase.GetTopRatedMoviesUseCase
 import com.ikmal.android_compose_pagination.home.domain.usecase.GetUpcomingMoviesUseCase
-import com.ikmal.android_compose_pagination.moviedetail.domain.model.MovieDetailEntity
-import com.ikmal.android_compose_pagination.moviedetail.domain.usecase.GetMovieDetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -24,31 +21,45 @@ class HomeViewModel @Inject constructor(
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
 ) : ViewModel() {
 
-    private val _popularMoviesState = mutableStateOf<Result<PopularMoviesEntity>>(Result.Loading)
-    val popularMoviesState: State<Result<PopularMoviesEntity>> = _popularMoviesState
+    private val _popularMoviesState = MutableStateFlow<HomeState>(HomeState.Init)
+    val popularMoviesState: MutableStateFlow<HomeState> = _popularMoviesState
 
-    private val _topRatedMoviesState = mutableStateOf<Result<PopularMoviesEntity>>(Result.Loading)
-    val topRatedMoviesState: State<Result<PopularMoviesEntity>> = _topRatedMoviesState
+    private val _topRatedMoviesState = MutableStateFlow<HomeState>(HomeState.Init)
+    val topRatedMoviesState: MutableStateFlow<HomeState> = _topRatedMoviesState
 
-    private val _nowPlayingMoviesState = mutableStateOf<Result<PopularMoviesEntity>>(Result.Loading)
-    val nowPlayingMoviesState: State<Result<PopularMoviesEntity>> = _nowPlayingMoviesState
+    private val _nowPlayingMoviesState = MutableStateFlow<HomeState>(HomeState.Init)
+    val nowPlayingMoviesState: MutableStateFlow<HomeState> = _nowPlayingMoviesState
 
-    private val _upcomingMoviesState = mutableStateOf<Result<PopularMoviesEntity>>(Result.Loading)
-    val upcomingMoviesState: State<Result<PopularMoviesEntity>> = _upcomingMoviesState
+    private val _upcomingMoviesState = MutableStateFlow<HomeState>(HomeState.Init)
+    val upcomingMoviesState: MutableStateFlow<HomeState> = _upcomingMoviesState
+
+    init {
+        getPopularMovies()
+        getTopRatedMovies()
+        getNowPlayingMovies()
+        getUpComingMovies()
+    }
 
     fun getPopularMovies() {
         viewModelScope.launch {
+            _popularMoviesState.emit(HomeState.Init)
             when (val result = getPopularMoviesUseCase.execute()) {
                 is Result.Loading -> {
-                    _popularMoviesState.value = Result.Loading
+                    _popularMoviesState.update {
+                        HomeState.Loading
+                    }
                 }
 
                 is Result.Success -> {
-                    _popularMoviesState.value = Result.Success(result.data)
+                    _popularMoviesState.update {
+                        HomeState.Success(result.data)
+                    }
                 }
 
                 is Result.Error -> {
-                    _popularMoviesState.value = Result.Error(result.exception)
+                    _popularMoviesState.update {
+                        HomeState.Error(result.exception)
+                    }
                 }
             }
         }
@@ -56,17 +67,24 @@ class HomeViewModel @Inject constructor(
 
     fun getTopRatedMovies() {
         viewModelScope.launch {
+            _topRatedMoviesState.emit(HomeState.Init)
             when (val result = getTopRatedMoviesUseCase.execute()) {
                 is Result.Loading -> {
-                    _topRatedMoviesState.value = Result.Loading
+                    _topRatedMoviesState.update {
+                        HomeState.Loading
+                    }
                 }
 
                 is Result.Success -> {
-                    _topRatedMoviesState.value = Result.Success(result.data)
+                    _topRatedMoviesState.update {
+                        HomeState.Success(result.data)
+                    }
                 }
 
                 is Result.Error -> {
-                    _topRatedMoviesState.value = Result.Error(result.exception)
+                    _topRatedMoviesState.update {
+                        HomeState.Error(result.exception)
+                    }
                 }
             }
         }
@@ -74,17 +92,24 @@ class HomeViewModel @Inject constructor(
 
     fun getNowPlayingMovies() {
         viewModelScope.launch {
+            _nowPlayingMoviesState.emit(HomeState.Init)
             when (val result = getNowPlayingMoviesUseCase.execute()) {
                 is Result.Loading -> {
-                    _nowPlayingMoviesState.value = Result.Loading
+                    _nowPlayingMoviesState.update {
+                        HomeState.Loading
+                    }
                 }
 
                 is Result.Success -> {
-                    _nowPlayingMoviesState.value = Result.Success(result.data)
+                    _nowPlayingMoviesState.update {
+                        HomeState.Success(result.data)
+                    }
                 }
 
                 is Result.Error -> {
-                    _nowPlayingMoviesState.value = Result.Error(result.exception)
+                    _nowPlayingMoviesState.update {
+                        HomeState.Error(result.exception)
+                    }
                 }
             }
         }
@@ -92,17 +117,24 @@ class HomeViewModel @Inject constructor(
 
     fun getUpComingMovies() {
         viewModelScope.launch {
+            _upcomingMoviesState.emit(HomeState.Init)
             when (val result = getUpcomingMoviesUseCase.execute()) {
                 is Result.Loading -> {
-                    _upcomingMoviesState.value = Result.Loading
+                    _upcomingMoviesState.update {
+                        HomeState.Loading
+                    }
                 }
 
                 is Result.Success -> {
-                    _upcomingMoviesState.value = Result.Success(result.data)
+                    _upcomingMoviesState.update {
+                        HomeState.Success(result.data)
+                    }
                 }
 
                 is Result.Error -> {
-                    _upcomingMoviesState.value = Result.Error(result.exception)
+                    _upcomingMoviesState.update {
+                        HomeState.Error(result.exception)
+                    }
                 }
             }
         }
