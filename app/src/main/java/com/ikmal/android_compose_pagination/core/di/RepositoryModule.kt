@@ -6,6 +6,9 @@ import com.ikmal.android_compose_pagination.home.data.repository.HomeRepositoryI
 import com.ikmal.android_compose_pagination.moviedetail.data.api.MovieDetailApi
 import com.ikmal.android_compose_pagination.moviedetail.data.repository.MovieDetailRepository
 import com.ikmal.android_compose_pagination.moviedetail.data.repository.MovieDetailRepositoryImpl
+import com.ikmal.android_compose_pagination.movielist.data.api.MovieListApi
+import com.ikmal.android_compose_pagination.movielist.data.repository.MovieListRepository
+import com.ikmal.android_compose_pagination.movielist.data.repository.MovieListRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +27,9 @@ object RepositoryModule {
     @Singleton
     fun provideMovieDetailRepository(movieDetailApi: MovieDetailApi): MovieDetailRepository =
         MovieDetailRepositoryImpl(movieDetailApi = movieDetailApi)
+
+    @Provides
+    @Singleton
+    fun provideMovieListRepository(movieListApi: MovieListApi): MovieListRepository =
+        MovieListRepositoryImpl(movieListApi = movieListApi)
 }
