@@ -85,6 +85,16 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+//    Flipper
+//    implementation("com.facebook.flipper:flipper:0.210.0")
+//    implementation("com.facebook.soloader:soloader:0.10.5")
+//    implementation("com.facebook.flipper:flipper-network-plugin:0.201.0")
+    debugImplementation("com.facebook.flipper:flipper:0.260.0")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.260.0")
+    debugImplementation("com.facebook.soloader:soloader:0.10.5")
+
+    releaseImplementation("com.facebook.flipper:flipper-noop:0.260.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")

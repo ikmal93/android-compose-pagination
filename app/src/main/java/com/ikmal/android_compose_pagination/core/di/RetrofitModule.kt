@@ -1,5 +1,8 @@
 package com.ikmal.android_compose_pagination.core.di
 
+import com.facebook.flipper.android.AndroidFlipperClient
+import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -33,6 +36,7 @@ object RetrofitModule {
     @Singleton
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
+        flipperOkhttpInterceptor: FlipperOkhttpInterceptor
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder
@@ -54,6 +58,7 @@ object RetrofitModule {
                 chain.proceed(request)
             }
             .addInterceptor(httpLoggingInterceptor)
+            .addNetworkInterceptor(flipperOkhttpInterceptor)
         return builder.build()
     }
 
@@ -63,6 +68,12 @@ object RetrofitModule {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = (HttpLoggingInterceptor.Level.BODY)
         return interceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideFlipperOkHttpInterceptor(): FlipperOkhttpInterceptor {
+        return FlipperOkhttpInterceptor(NetworkFlipperPlugin())
     }
 
     @Provides
