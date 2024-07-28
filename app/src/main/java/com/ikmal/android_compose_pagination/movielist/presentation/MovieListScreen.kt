@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.ikmal.android_compose_pagination.core.presentation.ListState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.movieListScreen() {
     composable("movie_list") {
@@ -39,7 +42,7 @@ fun NavGraphBuilder.movieListScreen() {
 fun MovieListScreen(viewModel: MovieListViewModel) {
 
     val dataList = viewModel.movies
-
+    val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
     val isLayoutReachedTop: Boolean by remember {
@@ -109,6 +112,9 @@ fun MovieListScreen(viewModel: MovieListViewModel) {
                             verticalArrangement = Arrangement.Center,
                         ) {
                             CircularProgressIndicator()
+                        }
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(dataList.size)
                         }
                     }
 
