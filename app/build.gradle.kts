@@ -85,6 +85,14 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+//    Chucker
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+
+//    Stetho
+    debugImplementation("com.facebook.stetho:stetho:1.6.0")
+    debugImplementation("com.facebook.stetho:stetho-okhttp3:1.6.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
