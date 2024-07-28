@@ -2,6 +2,7 @@ package com.ikmal.android_compose_pagination.core.di
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -37,6 +38,7 @@ object RetrofitModule {
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
         chuckerInterceptor: ChuckerInterceptor,
+        stethoInterceptor: StethoInterceptor,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder
@@ -59,6 +61,7 @@ object RetrofitModule {
             }
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(chuckerInterceptor)
+            .addNetworkInterceptor(stethoInterceptor)
         return builder.build()
     }
 
@@ -74,6 +77,12 @@ object RetrofitModule {
     @Singleton
     fun provideChuckerInterceptor(@ApplicationContext context: Context): ChuckerInterceptor {
         return ChuckerInterceptor.Builder(context).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideStethoInterceptor(): StethoInterceptor {
+        return StethoInterceptor()
     }
 
     @Provides
