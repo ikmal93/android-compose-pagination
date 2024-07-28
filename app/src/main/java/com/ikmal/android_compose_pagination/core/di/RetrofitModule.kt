@@ -1,10 +1,13 @@
 package com.ikmal.android_compose_pagination.core.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,6 +36,7 @@ object RetrofitModule {
     @Singleton
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
+        chuckerInterceptor: ChuckerInterceptor,
     ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder
@@ -54,6 +58,7 @@ object RetrofitModule {
                 chain.proceed(request)
             }
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(chuckerInterceptor)
         return builder.build()
     }
 
@@ -63,6 +68,12 @@ object RetrofitModule {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = (HttpLoggingInterceptor.Level.BODY)
         return interceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideChuckerInterceptor(@ApplicationContext context: Context): ChuckerInterceptor {
+        return ChuckerInterceptor.Builder(context).build()
     }
 
     @Provides
